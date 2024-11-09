@@ -25,6 +25,11 @@ connectDB()
 })
 
 
+// it's for generation of secret keys
+// const secret = crypto.randomBytes(64).toString('hex');
+// console.log(secret);
+
+
 /*
 
 import express from 'express';
