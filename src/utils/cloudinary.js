@@ -24,6 +24,7 @@ const uploadOnCloudinary = async (localFilePath) => {
     console.log("File is upload on cloudinary", response.url);
     return response;
   } catch (error) {
+    // we use syncronous unlink function as we need to first unlink this file-path then we go further to code i.e. it's important to do this task first.
     fs.unlinkSync(localFilePath); // Remove the locally saved temprory fileas as the upload operation got failed
     return null;
   }
