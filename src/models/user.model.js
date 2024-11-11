@@ -55,7 +55,7 @@ userSchema.pre("save", async function (next) {
 
     if(this.isModified("password")) return next();  // "isModified" is predefined function with "pre" that check if password alter OR not and then calls next() for another middleware
 
-    this.password = bcrypt.hash(this.password, 10); // Hashes the password before saving Moves to the next middleware or save operation
+    this.password = await bcrypt.hash(this.password, 10); // Hashes the password before saving Moves to the next middleware or save operation
     next();
 }) 
 
