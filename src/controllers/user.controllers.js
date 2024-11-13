@@ -43,7 +43,7 @@ const registerUser = asyncHandler(async (req, res)=>{
     const avatar = await uploadOnCloudinary(avatarLocalPath);
     const coverImage = await uploadOnCloudinary(coverImageLocalPath)
 
-    if(!avatar){
+    if(!avatar || !avatar.url){
         throw new ApiError(400, "Avatar image is required.");
     }
 
@@ -59,6 +59,10 @@ const registerUser = asyncHandler(async (req, res)=>{
     const createdUser =  await User.findById(user._id).select(
         "-password -refreshToken"
     )
+    // Validate Password Requirements
+    if (password.length < 8) {
+        throw new ApiError(400, "Password must be at least 8 characters long.");
+    }
 
     if(!createdUser){
         throw new ApiError(500, "Something went wrong while registering the user.")
